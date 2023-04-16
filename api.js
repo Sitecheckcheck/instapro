@@ -23,9 +23,7 @@ export function getPosts({ token }) {
     });
 }
 
-
 export function getUserPosts({ token, userId }) {
-  console.log(`${postsHost}/user-posts/${userId}`);
   return fetch(`${postsHost}/user-posts/${userId}`, {
     method: "GET",
     headers: {
@@ -90,16 +88,38 @@ export function uploadImage({ file }) {
   });
 }
 
-
 export function addPosts({ token, description, imageUrl }) {
-  return fetch(
-    postsHost,
-    {
-      method: "POST",
-      body: JSON.stringify({ description, imageUrl }),
-      headers: { Authorization: token },
-    }
-  );
+  return fetch(postsHost, {
+    method: "POST",
+    body: JSON.stringify({ description, imageUrl }),
+    headers: { Authorization: token },
+  });
 }
 
+export function addLike({ token, postId }) {
+  return fetch(`${postsHost}/${postId}/like`, {
+    method: "POST",
+    headers: {
+      Authorization: token,
+    },
+  }).then((response) => {
+    if (response.status === 401) {
+      throw new Error("Нет авторизации");
+    }
+    return response.json();
+  });
+}
 
+export function deleteLike({ token, postId }) {
+  return fetch(`${postsHost}/${postId}/dislike`, {
+    method: "POST",
+    headers: {
+      Authorization: token,
+    },
+  }).then((response) => {
+    if (response.status === 401) {
+      throw new Error("Нет авторизации");
+    }
+    return response.json();
+  });
+}
