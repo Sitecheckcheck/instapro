@@ -78,13 +78,13 @@ export const goToPage = (newPage, data) => {
 
       return getUserPosts({ token: getToken(), userId: data.userId })
         .then((newPosts) => {
-          page = USER_POSTS_PAGE;
+          page = POSTS_PAGE;
           posts = newPosts;
           renderApp();
         })
         .catch((error) => {
           console.error(error);
-          goToPage(USER_POSTS_PAGE);
+          goToPage(POSTS_PAGE);
         });
 
       // TODO: реализовать получение постов юзера из API
@@ -129,11 +129,11 @@ const renderApp = () => {
   if (page === ADD_POSTS_PAGE) {
     return renderAddPostPageComponent({
       appEl,
-      onAddPostClick({ description, imageUrl }) {
-        // TODO: реализовать добавление поста в API
-        console.log("Добавляю пост...", { description, imageUrl });
-        goToPage(POSTS_PAGE);
-      },
+      // onAddPostClick({ description, imageUrl }) {
+      //   // TODO: реализовать добавление поста в API
+      //   console.log("Добавляю пост...", { description, imageUrl });
+      //   goToPage(POSTS_PAGE);
+      // },
     });
   }
 

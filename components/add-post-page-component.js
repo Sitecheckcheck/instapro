@@ -36,14 +36,11 @@ export function renderAddPostPageComponent({ appEl, onAddPostClick }) {
 
     appEl.innerHTML = appHtml;
 
-
     renderHeaderComponent({
       element: document.querySelector(".header-container"),
     });
 
-    const uploadImageContainer = appEl.querySelector(
-      ".upload-image-container"
-    );
+    const uploadImageContainer = appEl.querySelector(".upload-image-container");
 
     if (uploadImageContainer) {
       renderUploadImageComponent({
@@ -57,17 +54,33 @@ export function renderAddPostPageComponent({ appEl, onAddPostClick }) {
     document.getElementById("add-button").addEventListener("click", () => {
       const textInputElement = document.getElementById("inputText");
 
+      if (!imageUrl) {
+        alert("выберите фото");
+        return;
+      }
+
+      if (!textInputElement.value) {
+        alert("напишите описание");
+        return;
+      }
+
       addPosts({
         token: getToken(),
-        description: textInputElement.value,
+        description: textInputElement.value
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;"),
         imageUrl,
       })
         .then((response) => {
           return response.json();
         })
         .then((data) => {
-          console.log(data);
+          console.log(data.error);
+          // alert(data);
           goToPage(POSTS_PAGE);
+        })
+        .catch((error) => {
+          console.log(error.message);
         });
     });
   };
