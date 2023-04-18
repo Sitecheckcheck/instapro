@@ -3,6 +3,7 @@ import { renderHeaderComponent } from "./header-component.js";
 import { posts, goToPage, getToken } from "../index.js";
 import { addLike, deleteLike } from "../api.js";
 import { formatDistanceToNow } from "date-fns";
+import { ru } from 'date-fns/locale';
 
 export function renderPostsPageComponent({ appEl }) {
   // TODO: реализовать рендер постов из api
@@ -15,7 +16,7 @@ export function renderPostsPageComponent({ appEl }) {
 
   const postHtml = posts
     .map((post) => {
-      const dateFormat = formatDistanceToNow(new Date(post.createdAt));
+      const dateFormat = formatDistanceToNow(new Date(post.createdAt), {locale: ru});
       return `
                   <li class="post">
                     <div class="post-header" data-user-id="${post.user.id}">
