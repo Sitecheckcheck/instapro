@@ -8,7 +8,6 @@ let imageUrl = "";
 
 export function renderAddPostPageComponent({ appEl, onAddPostClick }) {
   const render = () => {
-    // TODO: Реализовать страницу добавления поста
     const appHtml = `
     <div class="page-container">
       <div class="header-container"></div>
@@ -76,7 +75,6 @@ export function renderAddPostPageComponent({ appEl, onAddPostClick }) {
         })
         .then((data) => {
           console.log(data.error);
-          // alert(data);
           goToPage(POSTS_PAGE);
         })
         .catch((error) => {
