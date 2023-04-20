@@ -1,6 +1,6 @@
 import { USER_POSTS_PAGE, POSTS_PAGE } from "../routes.js";
 import { renderHeaderComponent } from "./header-component.js";
-import { posts, goToPage, getToken } from "../index.js";
+import { posts, goToPage, getToken, user } from "../index.js";
 import { addLike, deleteLike } from "../api.js";
 import { formatDistanceToNow } from "date-fns";
 import { ru } from "date-fns/locale";
@@ -86,8 +86,8 @@ export function renderPostsPageComponent({ appEl }) {
           () => {
             posts[index].isLiked = true;
             posts[index].likes.push({
-              id: posts[index].user.id,
-              name: posts[index].user.name,
+              id: user.id,
+              name: user.name,
             });
 
             renderPostsPageComponent({ appEl });
