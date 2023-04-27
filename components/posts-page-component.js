@@ -1,7 +1,7 @@
 import { USER_POSTS_PAGE, POSTS_PAGE } from "../routes.js";
 import { renderHeaderComponent } from "./header-component.js";
 import { posts, goToPage, getToken, user } from "../index.js";
-import { addLike, deleteLike } from "../api.js";
+import { addLike, deleteLike, deletePost } from "../api.js";
 import { formatDistanceToNow } from "date-fns";
 import { ru } from "date-fns/locale";
 
@@ -24,6 +24,7 @@ export function renderPostsPageComponent({ appEl }) {
                     <div class="post-image-container">
                       <img class="post-image" src="${post.imageUrl}">
                     </div>
+                    <div class='footer-image'>
                     <div class="post-likes">
                       <button data-post-id="${post.id}"  data-liked = "${
         post.isLiked
@@ -43,6 +44,8 @@ export function renderPostsPageComponent({ appEl }) {
           : post.likes.length
       }  </strong>
                       </p>
+                    </div>
+                    <button class='delete-post' data-post-id="${post.id}">Delete</button>
                     </div>
                     <p class="post-text">
                       <span class="user-name">${post.user.name}</span>
@@ -102,6 +105,22 @@ export function renderPostsPageComponent({ appEl }) {
           }
         );
       }
+    });
+  }
+
+
+
+
+
+
+  for (let postEl of document.querySelectorAll(".delete-post")) {
+    postEl.addEventListener("click", () => {
+      
+        deletePost({ token: getToken(), postId: postEl.dataset.postId }).then(
+          () => {
+            goToPage(POSTS_PAGE);
+          }
+        );
     });
   }
 }
