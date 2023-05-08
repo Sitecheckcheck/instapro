@@ -10,13 +10,13 @@ export function renderAddPostPageComponent({ appEl, onAddPostClick }) {
   const render = () => {
     const appHtml = `
     <div class="page-container">
-      <div class="header-container"></div>
+      <div class="header-container">
+      </div>
       <div class="form">
         <h3 class="form-title">Добавить пост</h3>
         <div class="form-inputs">
           <div class="upload-image-container">
-            <div class="upload=image">
-      
+            <div class="upload=image">     
               <label class="file-upload-label secondary-button">
                 <input type="file" class="file-upload-input" style="display:none">
                 Выберите фото
@@ -74,7 +74,6 @@ export function renderAddPostPageComponent({ appEl, onAddPostClick }) {
           return response.json();
         })
         .then((data) => {
-          console.log(data.error);
           goToPage(POSTS_PAGE);
         })
         .catch((error) => {
